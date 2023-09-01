@@ -2,14 +2,8 @@ package address
 
 import (
 	"bytes"
-	"crypto"
 	"crypto/aes"
 	"crypto/cipher"
-	"crypto/rand"
-	"crypto/rsa"
-	"crypto/sha1"
-	"crypto/x509"
-	"encoding/pem"
 	"fmt"
 	"github.com/wii-tools/lzx/lz10"
 	"log"
@@ -59,12 +53,7 @@ func MakeAddresses() {
 			mode := cipher.NewCBCEncrypter(block, make([]byte, 16))
 			mode.CryptBlocks(encrypted, buffer.Bytes())
 
-			var finalBuffer []byte
-			finalBuffer = make([]byte, 64)
-			finalBuffer = append(finalBuffer, SignFile(encrypted)...)
-			finalBuffer = append(finalBuffer, encrypted...)
-
-			err = os.WriteFile(fmt.Sprintf("%s.alas", ZFill(region.ID, 3)), finalBuffer, 0666)
+			err = os.WriteFile(fmt.Sprintf("%s.alas", ZFill(region.ID, 3)), encrypted, 0666)
 			checkError(err)
 		}(region)
 	}
@@ -79,27 +68,4 @@ func ZFill(str string, size int) string {
 	}
 
 	return temp + str
-}
-
-func SignFile(contents []byte) []byte {
-	rsaData, err := os.ReadFile("Private.pem")
-	checkError(err)
-
-	rsaBlock, _ := pem.Decode(rsaData)
-
-	parsedKey, err := x509.ParsePKCS1PrivateKey(rsaBlock.Bytes)
-	checkError(err)
-
-	// Hash our data then sign
-	hash := sha1.New()
-	_, err = hash.Write(contents)
-	checkError(err)
-
-	contentsHashSum := hash.Sum(nil)
-
-	reader := rand.Reader
-	signature, err := rsa.SignPKCS1v15(reader, parsedKey, crypto.SHA1, contentsHashSum)
-	checkError(err)
-
-	return signature
 }
