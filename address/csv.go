@@ -40,8 +40,8 @@ func loadCSVFile() []Region {
 			continue
 		}
 
-		// We are guaranteed to have the coordinates of the country be (0, 0)
-		if record[3] == "0" {
+		// Region Name == Region Name (English)
+		if record[1] == record[6] {
 			currentCountryIndex++
 			region = append(region, Region{
 				SubRegion: SubRegion{
@@ -58,6 +58,7 @@ func loadCSVFile() []Region {
 				},
 				SubRegions: nil,
 			})
+			// If the coordinates of the country are not (0, 0), there are no subregions.
 		} else {
 			region[currentCountryIndex].SubRegions = append(region[currentCountryIndex].SubRegions, SubRegion{
 				ID:           record[2],

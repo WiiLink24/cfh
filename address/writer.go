@@ -16,10 +16,16 @@ func writeRegionData(region Region) []byte {
 
 	// The region data is a Javascript Array in a file named `regionData.js`.
 	buffer.WriteString(ArrayStart)
-	// The country is considered a region with coordinates (0, 0)
-	buffer.WriteString(fmt.Sprintf(ArrayContent, "1", "0", "0",
+
+	// It is possible for a country to not have any subregions. Take for example, any Caribbean Island.
+	separator := ","
+	if len(region.SubRegions) == 0 {
+		separator = ""
+	}
+
+	buffer.WriteString(fmt.Sprintf(ArrayContent, "1", region.Latitude, region.Longitude,
 		region.JapaneseName, region.EnglishName, region.GermanName,
-		region.FrenchName, region.SpanishName, region.ItalianName, region.DutchName, ","))
+		region.FrenchName, region.SpanishName, region.ItalianName, region.DutchName, separator))
 
 	for i, subRegion := range region.SubRegions {
 		separator := ","
