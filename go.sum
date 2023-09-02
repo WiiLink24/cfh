@@ -1,0 +1,6 @@
+github.com/SketchMaster2001/libwc24crypt v0.0.0-20221114191055-b7fc8eef33ba h1:84pil6W4Btu3vRBkHi4zqKJHwxBELdj3UPxHM2aXVIo=
+github.com/SketchMaster2001/libwc24crypt v0.0.0-20221114191055-b7fc8eef33ba/go.mod h1:7DudmdnRCHnkO0Ox06OU/UZ4GYbP3W6hcZDhq416Ex0=
+github.com/wii-tools/arclib v1.0.0 h1:OAmbL3NDUmlR0wa1VpJhxnKiIRFZz1CC40lTVPUm8Ms=
+github.com/wii-tools/arclib v1.0.0/go.mod h1:uXFan/NSXoQ2pOVPN4ugZ4nJX7esBnjB1QUgVrEzK/4=
+github.com/wii-tools/lzx v0.0.0-20221114001118-aaec5e424e43 h1:woCmRIngzz1fcUDj+1at7h9EW1Os8SK0tbOh4WEoyPQ=
+github.com/wii-tools/lzx v0.0.0-20221114001118-aaec5e424e43/go.mod h1:ufCQJfNwbD5fkg6jHpw69vc5opbc42TePvnloMFYbmY=
